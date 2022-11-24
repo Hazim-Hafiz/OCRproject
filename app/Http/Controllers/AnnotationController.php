@@ -22,12 +22,12 @@ class AnnotationController extends Controller
         //prepare request
         $request = new AnnotateImageRequest();
         $request->setImage($image);
-        $request->setFeature("TEXT_DETECTION");
+        $request->setFeature("DOCUMENT_TEXT_DETECTION");
         $gcvRequest = new GoogleCloudVision([$request],  env('GOOGLE_CLOUD_KEY'));
         //send annotation request
         $response = $gcvRequest->annotate();
         
-        return json_encode(["description" => $response]);
+        return $response->responses;
 
       }
     }
